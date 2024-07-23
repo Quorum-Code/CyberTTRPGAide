@@ -67,5 +67,21 @@ namespace CyberTTRPGAideWeb.Controllers
 
             return RedirectToAction("List", "UserInfo");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(UserInfo viewModel) 
+        {
+            var userInfo = await dbContext.UserInfos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+
+            if (userInfo is not null) 
+            {
+                dbContext.UserInfos.Remove(userInfo);
+                await dbContext.SaveChangesAsync();
+            }
+
+			return RedirectToAction("List", "UserInfo");
+		}
     }
 }
