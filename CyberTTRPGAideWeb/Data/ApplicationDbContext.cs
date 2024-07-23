@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CyberTTRPGAideWeb.Models.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberTTRPGAideWeb.Data
@@ -9,5 +10,7 @@ namespace CyberTTRPGAideWeb.Data
             : base(options)
         {
         }
+
+        public DbSet<UserInfo> UserInfos { get; set; }
     }
 }

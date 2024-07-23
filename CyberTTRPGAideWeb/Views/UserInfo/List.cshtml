@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<CyberTTRPGAideWeb.Models.Entities.UserInfo>
+
+<h1>UserInfos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userInfo in Model)
+        {
+            <tr>
+                <td>@userInfo.Id</td>
+                <td>@userInfo.Username</td>
+                <td>@userInfo.Email</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="UserInfo" asp-action="Edit" asp-route-id="@userInfo.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
