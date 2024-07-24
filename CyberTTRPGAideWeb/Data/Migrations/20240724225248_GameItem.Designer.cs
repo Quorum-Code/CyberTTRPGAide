@@ -4,6 +4,7 @@ using CyberTTRPGAideWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CyberTTRPGAideWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724225248_GameItem")]
+    partial class GameItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,22 +74,6 @@ namespace CyberTTRPGAideWeb.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GameItem");
-                });
-
-            modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.Inventory", b =>
-                {
-                    b.Property<Guid>("CharacterSheetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GameItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ItemCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("CharacterSheetId", "GameItemId");
-
-                    b.ToTable("Inventories");
                 });
 
             modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.UserInfo", b =>

@@ -4,6 +4,7 @@ using CyberTTRPGAideWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CyberTTRPGAideWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724183541_Renamed IdentityUser")]
+    partial class RenamedIdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +35,9 @@ namespace CyberTTRPGAideWeb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
@@ -41,52 +47,9 @@ namespace CyberTTRPGAideWeb.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdentityUserId");
+
                     b.ToTable("CharacterSheet");
-                });
-
-            modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.GameItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Effects")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GameItem");
-                });
-
-            modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.Inventory", b =>
-                {
-                    b.Property<Guid>("CharacterSheetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GameItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ItemCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("CharacterSheetId", "GameItemId");
-
-                    b.ToTable("Inventories");
                 });
 
             modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.UserInfo", b =>
@@ -308,6 +271,15 @@ namespace CyberTTRPGAideWeb.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CyberTTRPGAideWeb.Models.Entities.CharacterSheet", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+
+                    b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
