@@ -15,5 +15,6 @@ namespace CyberTTRPGAideWeb.Data
         public DbSet<CyberTTRPGAideWeb.Models.Entities.CharacterSheet> CharacterSheet { get; set; } = default!;
         public DbSet<CyberTTRPGAideWeb.Models.Entities.GameItem> GameItem { get; set; } = default!;
         public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<CyberTTRPGAideWeb.Models.Entities.GameLog> GameLog { get; set; } = default!;
     }
 }
