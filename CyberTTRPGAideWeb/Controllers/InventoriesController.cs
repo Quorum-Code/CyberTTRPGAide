@@ -67,14 +67,14 @@ namespace CyberTTRPGAideWeb.Controllers
         }
 
         // GET: Inventories/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid? characterSheetId, Guid? gameItemId)
         {
-            if (id == null)
+            if (characterSheetId == null || gameItemId == null)
             {
                 return NotFound();
             }
 
-            var inventory = await _context.Inventories.FindAsync(id);
+            var inventory = await _context.Inventories.FindAsync(characterSheetId, gameItemId);
             if (inventory == null)
             {
                 return NotFound();
@@ -103,7 +103,7 @@ namespace CyberTTRPGAideWeb.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InventoryExists(inventory.CharacterSheetId))
+                    if (!InventoryExists(inventory.CharacterSheetId, inventory.GameItemId))
                     {
                         return NotFound();
                     }
@@ -118,15 +118,15 @@ namespace CyberTTRPGAideWeb.Controllers
         }
 
         // GET: Inventories/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid? characterSheetId, Guid? gameItemId)
         {
-            if (id == null)
+            if (characterSheetId == null || gameItemId == null)
             {
                 return NotFound();
             }
 
             var inventory = await _context.Inventories
-                .FirstOrDefaultAsync(m => m.CharacterSheetId == id);
+                .FirstOrDefaultAsync(m => m.CharacterSheetId == characterSheetId && m.GameItemId == gameItemId);
             if (inventory == null)
             {
                 return NotFound();
@@ -138,9 +138,9 @@ namespace CyberTTRPGAideWeb.Controllers
         // POST: Inventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? characterSheetId, Guid? gameItemId)
         {
-            var inventory = await _context.Inventories.FindAsync(id);
+            var inventory = await _context.Inventories.FindAsync(characterSheetId, gameItemId);
             if (inventory != null)
             {
                 _context.Inventories.Remove(inventory);
@@ -150,9 +150,9 @@ namespace CyberTTRPGAideWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InventoryExists(Guid id)
+        private bool InventoryExists(Guid? characterSheetId, Guid? gameItemId)
         {
-            return _context.Inventories.Any(e => e.CharacterSheetId == id);
+            return _context.Inventories.Any(e => e.CharacterSheetId == characterSheetId && e.GameItemId == gameItemId);
         }
     }
 }
