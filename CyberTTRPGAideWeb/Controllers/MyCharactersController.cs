@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
@@ -26,6 +27,7 @@ namespace CyberTTRPGAideWeb.Controllers
         }
 
         // GET: CharacterSheets
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
