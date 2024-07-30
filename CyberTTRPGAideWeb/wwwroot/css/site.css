@@ -1,5 +1,44 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    background: rgb(47,11,18);
+    background: linear-gradient(180deg, rgba(47,11,18,1) 0%, rgba(13,3,37,1) 100%);
+}
+
+body {
+    background: rgba(0, 0, 0, 0);
+}
+
+a, .btn-link {
+    text-shadow: 1px 0px 2px red, 0 0 .3em blue, 0 0 0.2em blue;
+}
+
+.cb-text-bright {
+    color: #db3030 !important;
+    text-shadow: 1px 1px 3px red;
+}
+
+p, .cb-text-lightish {
+    color: #b2d7db !important;
+}
+
+.cb-text-light {
+    color: #11e0e8 !important;
+}
+
+.cb-bg-dark {
+    background-color: #24080d;
+}
+
+.cb-border-top {
+    border-top: 1px solid #9b322f;
+}
+
+.cb-border-bottom {
+    border-bottom: 1px solid #9b322f;
+}
+
+.bg-primary {
+    background-color:  !important;
 }
 
 @media (min-width: 768px) {
