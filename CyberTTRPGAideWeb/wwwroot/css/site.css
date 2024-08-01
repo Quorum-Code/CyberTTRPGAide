@@ -8,12 +8,17 @@ body {
     background: rgba(0, 0, 0, 0);
 }
 
+h1 {
+    color: yellow;
+    text-shadow: 0px 1px 3px orange;
+}
+
 a, .btn-link {
     text-shadow: 1px 0px 2px red, 0 0 .3em blue, 0 0 0.2em blue;
 }
 
 .cb-text-bright {
-    color: #db3030 !important;
+    color: #e63a20 !important;
     text-shadow: 1px 1px 3px red;
 }
 

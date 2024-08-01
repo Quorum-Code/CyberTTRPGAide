@@ -1,6 +1,8 @@
 using CyberTTRPGAideWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using NuGet.Protocol.Plugins;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// Add SwaggerUI enpoint
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options => 
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Cyber TTRPG API",
+        Description = "API for managing campaigns and characters."
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,5 +54,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+//// Prep SwaggerUI
+//app.UseSwagger();
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwaggerUI();
+//}
+
+//app.MapPost("/fruitlist", (CyberTTRPGAideWeb.Models.Entities.GameItem gameItem) =>
+//{
+//    return;
+//})
+//    .WithTags("Add fruit to list");
 
 app.Run();
