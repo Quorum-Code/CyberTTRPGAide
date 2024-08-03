@@ -31,11 +31,10 @@ namespace CyberTTRPGAideWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed()
         {
-            var before = _context.GameItem.Count();
             _context.GameItem.RemoveRange();
-            var after = _context.GameItem.Count();
+            await _context.SaveChangesAsync();
 
-            // await _context.SaveChangesAsync();
+            TempData["status"] = "Successfully deleted all GameItems.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -43,29 +42,34 @@ namespace CyberTTRPGAideWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GenerateGameItemsConfirmed()
         {
-            Console.WriteLine("Called Generate Items");
-
-            //GameItem g = new();
-            //g.Id = Guid.NewGuid();
-            //_context.Add(g);
-            //await _context.SaveChangesAsync();
-
-            var path = "TestData/GameItem.json";
-
-            if (System.IO.File.Exists(path))
+            var path = "TestData/GameItems.json";
+            if (!System.IO.File.Exists(path)) 
             {
-                using StreamReader reader = new(path);
-                string text = reader.ReadToEnd();
-
-                var items = JsonSerializer.Deserialize<GameItem>(text);
-
-                Console.WriteLine(items);
-            }
-            else 
-            {
-                Console.WriteLine("File path: '" + path + "' does not exist");
+                TempData["status"] = "File path: '" + path + "' does not exist";
+                return RedirectToAction(nameof(Index));
             }
 
+            using StreamReader reader = new(path);
+            string text = reader.ReadToEnd();
+
+            var items = JsonSerializer.Deserialize<List<GameItem>>(text);
+
+            if (items == null) 
+            {
+                TempData["status"] = "Failed to create GameItems.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var item in items)
+            {
+                if (await _context.GameItem.FirstOrDefaultAsync(m => m.Id == item.Id) != null)
+                    continue;
+
+                _context.Add(item);
+            }
+            await _context.SaveChangesAsync();
+
+            TempData["status"] = "Successfully created GameItems.";
             return RedirectToAction(nameof(Index));
         }
     }

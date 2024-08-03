@@ -4,6 +4,15 @@
 @{
 <p>Index for Debug!</p>
 
+<div class="container pt-4">
+    <div>
+        @if (TempData["status"] != null)
+        {
+            <h4 class="cb-light"> @TempData["status"] </h4>
+        }
+    </div>
+</div>
+
 <table class="table cb-table">
     <thead>
         <tr>
@@ -15,7 +24,7 @@
         <tr>
             <td>
                 <form asp-action="GenerateGameItems">
-                    <input type="submit" value="Create Example GameItems" class="btn" />
+                        <input type="submit" value="Create Example GameItems" class="btn btn-primary" />
                 </form>
             </td>
             <td>
