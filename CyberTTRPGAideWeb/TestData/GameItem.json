@@ -1,0 +1,8 @@
+{
+    "Id": "0332d1e3-c82c-41ff-b2a6-611df71c84fa",
+    "Name": "Bandage",
+    "Value": 3,
+    "Description": "A simple sterile bandage.",
+    "Effects": "Heals 1d3.",
+    "Weight": 0
+}

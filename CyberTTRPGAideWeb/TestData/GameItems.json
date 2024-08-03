@@ -1,0 +1,26 @@
+[
+    {
+        "Id": "0332d1e3-c82c-41ff-b2a6-611df71c84fa",
+        "Name": "Bandage",
+        "Value": 3,
+        "Description": "A simple sterile bandage.",
+        "Effects": "Heals 1d3.",
+        "Weight": 0
+    },
+    {
+        "Id": "ac7b6a68-7e03-45cd-9719-e75bca92ba8f",
+        "Name": "Short Blade",
+        "Value": 10,
+        "Description": "Press cut steel, loosely sharpened.",
+        "Effects": "Deals 1d8 damage.",
+        "Weight": 3
+    },
+    {
+        "Id": "c4e56748-f7a4-405c-bd6e-784dcc3b4267",
+        "Name": "X1-Injector",
+        "Value": 125,
+        "Description": "Stim produced by Arasaka, ",
+        "Effects": "Heals 1d20-5.",
+        "Weight": 0.1
+    }
+]
