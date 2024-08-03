@@ -1,3 +1,12 @@
+:root {
+    --cb-heading: yellow;
+    --cb-background-dark: #24080d;
+    --cb-bright: #e63a20;
+    --cb-lightish: #b2d7db;
+    --cb-light: #11e0e8;
+    --cb-border: #9b322f;
+}
+
 html {
     font-size: 14px;
     background: rgb(47,11,18);
@@ -18,32 +27,36 @@ a, .btn-link {
 }
 
 .cb-text-bright {
-    color: #e63a20 !important;
+    color: var(--cb-bright) !important;
     text-shadow: 1px 1px 3px red;
 }
 
 p, .cb-text-lightish {
-    color: #b2d7db !important;
+    color: var(--cb-lightish) !important;
 }
 
 .cb-text-light {
-    color: #11e0e8 !important;
+    color: var(--cb-light) !important;
 }
 
 .cb-bg-dark {
-    background-color: #24080d;
+    background-color: var(--cb-background-dark);
 }
 
 .cb-border-top {
-    border-top: 1px solid #9b322f;
+    border-top: 1px solid var(--cb-border);
 }
 
 .cb-border-bottom {
-    border-bottom: 1px solid #9b322f;
+    border-bottom: 1px solid var(--cb-border);
 }
 
 .bg-primary {
     background-color:  !important;
+}
+
+.cb-table > thead > tr > th {
+    color: #11e0e8;
 }
 
 @media (min-width: 768px) {

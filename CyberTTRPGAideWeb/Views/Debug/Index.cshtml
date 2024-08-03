@@ -4,8 +4,25 @@
 @{
 <p>Index for Debug!</p>
 
-    <form asp-action="Delete">
-        <input type="submit" value="Delete All GameItems" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<table class="table cb-table">
+    <thead>
+        <tr>
+            <th> Adds </th>
+            <th> Deletes </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <p> Empty </p>
+            </td>
+            <td>
+                <form asp-action="Delete">
+                    <input type="submit" value="Delete All GameItems" class="btn btn-danger" />
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 }
