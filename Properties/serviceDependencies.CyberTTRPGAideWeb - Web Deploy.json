@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql3": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/CyberTTRPGAideWeb/providers/Microsoft.ServiceLinker/linkers/ConnectionStrings_8B3AEFD23A",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/cyberttrpgaidewebdbserver/databases/CyberTTRPGAideWeb_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings"
+    }
+  }
+}

@@ -8,6 +8,10 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:DbContext",
       "dynamicId": null
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings"
     }
   }
 }
