@@ -1,10 +1,5 @@
 ﻿namespace CyberTTRPGAideWeb.Models.Entities
 {
-    public class GameItemJsons 
-    {
-        public GameItem[] GameItems { get; set; }
-    }
-
     public class GameItem
     {
         public Guid Id { get; set; }
