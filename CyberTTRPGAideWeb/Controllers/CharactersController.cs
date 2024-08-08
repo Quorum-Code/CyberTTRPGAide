@@ -26,7 +26,7 @@ namespace CyberTTRPGAideWeb.Controllers
             _userManager = userManager;
         }
 
-        // GET: CharacterSheets
+        // GET: Character
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -34,12 +34,12 @@ namespace CyberTTRPGAideWeb.Controllers
 
             var userId = user?.Id;
 
-            var myCharacters = await _context.CharacterSheet.Where(c => c.UserId == userId).ToListAsync();
+            var myCharacters = await _context.Characters.Where(c => c.UserId == userId).ToListAsync();
 
             return View(myCharacters);
         }
 
-        // GET: CharacterSheets/Details/5
+        // GET: Character/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -47,17 +47,17 @@ namespace CyberTTRPGAideWeb.Controllers
                 return NotFound();
             }
 
-            var characterSheet = await _context.CharacterSheet
+            var characters = await _context.Characters
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (characterSheet == null)
+            if (characters == null)
             {
                 return NotFound();
             }
 
-            return View(characterSheet);
+            return View(characters);
         }
 
-        // GET: CharacterSheets/Create
+        // GET: Character/Create
         public IActionResult Create()
         {
             return View();
@@ -69,19 +69,19 @@ namespace CyberTTRPGAideWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Verified")]
-        public async Task<IActionResult> Create([Bind("Id,UserId,CharacterName,Level")] CharacterSheet characterSheet)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Name,Level")] Character character)
         {
             if (ModelState.IsValid)
             {
-                characterSheet.Id = Guid.NewGuid();
-                _context.Add(characterSheet);
+                character.Id = Guid.NewGuid();
+                _context.Add(character);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(characterSheet);
+            return View(character);
         }
 
-        // GET: CharacterSheets/Edit/5
+        // GET: Character/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -89,23 +89,23 @@ namespace CyberTTRPGAideWeb.Controllers
                 return NotFound();
             }
 
-            var characterSheet = await _context.CharacterSheet.FindAsync(id);
-            if (characterSheet == null)
+            var character = await _context.Characters.FindAsync(id);
+            if (character == null)
             {
                 return NotFound();
             }
-            return View(characterSheet);
+            return View(character);
         }
 
-        // POST: CharacterSheets/Edit/5
+        // POST: Character/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Verified")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserId,CharacterName,Level")] CharacterSheet characterSheet)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserId,Name,Level")] Character character)
         {
-            if (id != characterSheet.Id)
+            if (id != character.Id)
             {
                 return NotFound();
             }
@@ -114,12 +114,12 @@ namespace CyberTTRPGAideWeb.Controllers
             {
                 try
                 {
-                    _context.Update(characterSheet);
+                    _context.Update(character);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CharacterSheetExists(characterSheet.Id))
+                    if (!CharacterExists(character.Id))
                     {
                         return NotFound();
                     }
@@ -130,7 +130,7 @@ namespace CyberTTRPGAideWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(characterSheet);
+            return View(character);
         }
 
         // GET: CharacterSheets/Delete/5
@@ -141,14 +141,14 @@ namespace CyberTTRPGAideWeb.Controllers
                 return NotFound();
             }
 
-            var characterSheet = await _context.CharacterSheet
+            var characters = await _context.Characters
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (characterSheet == null)
+            if (characters == null)
             {
                 return NotFound();
             }
 
-            return View(characterSheet);
+            return View(characters);
         }
 
         // POST: CharacterSheets/Delete/5
@@ -157,19 +157,19 @@ namespace CyberTTRPGAideWeb.Controllers
         [Authorize(Roles = "Verified")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var characterSheet = await _context.CharacterSheet.FindAsync(id);
-            if (characterSheet != null)
+            var character = await _context.Characters.FindAsync(id);
+            if (character != null)
             {
-                _context.CharacterSheet.Remove(characterSheet);
+                _context.Characters.Remove(character);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CharacterSheetExists(Guid id)
+        private bool CharacterExists(Guid id)
         {
-            return _context.CharacterSheet.Any(e => e.Id == id);
+            return _context.Characters.Any(e => e.Id == id);
         }
     }
 }

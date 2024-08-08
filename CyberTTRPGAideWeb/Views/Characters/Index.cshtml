@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CyberTTRPGAideWeb.Models.Entities.CharacterSheet>
+﻿@model IEnumerable<CyberTTRPGAideWeb.Models.Entities.Character>
 
 @{
     ViewData["Title"] = "Characters";
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th class="cb-text-light">
-                @Html.DisplayNameFor(model => model.CharacterName)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th class="cb-text-light">
                 @Html.DisplayNameFor(model => model.Level)
@@ -32,7 +32,7 @@
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td class="cb-text-lightish">
-                    @Html.DisplayFor(modelItem => item.CharacterName)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td class="cb-text-lightish">
                     @Html.DisplayFor(modelItem => item.Level)
