@@ -79,7 +79,7 @@ app.MapRazorPages();
 using (var scope = app.Services.CreateScope()) 
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var roles = new[] { "Admin", "Developer" };
+    var roles = new[] { "Verified", "Admin", "Developer" };
 
     foreach (var role in roles) 
     {

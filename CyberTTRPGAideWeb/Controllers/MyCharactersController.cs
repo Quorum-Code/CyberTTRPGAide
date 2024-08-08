@@ -68,6 +68,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Create([Bind("Id,UserId,CharacterName,Level")] CharacterSheet characterSheet)
         {
             if (ModelState.IsValid)
@@ -101,6 +102,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserId,CharacterName,Level")] CharacterSheet characterSheet)
         {
             if (id != characterSheet.Id)
@@ -152,6 +154,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // POST: CharacterSheets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var characterSheet = await _context.CharacterSheet.FindAsync(id);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CyberTTRPGAideWeb.Data;
 using CyberTTRPGAideWeb.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
@@ -54,6 +55,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Create([Bind("Id,CharacterSheetId,Title,Text,TimeCreatedAt")] GameLog gameLog)
         {
             if (ModelState.IsValid)
@@ -87,6 +89,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,CharacterSheetId,Title,Text,TimeCreatedAt")] GameLog gameLog)
         {
             if (id != gameLog.Id)
@@ -138,6 +141,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // POST: GameLogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var gameLog = await _context.GameLog.FindAsync(id);

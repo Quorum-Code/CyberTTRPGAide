@@ -29,6 +29,7 @@ namespace CyberTTRPGAideWeb.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Developer")]
         public async Task<IActionResult> DeleteConfirmed()
         {
             _context.GameItem.RemoveRange();
@@ -40,6 +41,7 @@ namespace CyberTTRPGAideWeb.Controllers
 
         [HttpPost, ActionName("GenerateGameItems")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Developer")]
         public async Task<IActionResult> GenerateGameItemsConfirmed()
         {
             var path = "TestData/GameItems.json";

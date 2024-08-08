@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CyberTTRPGAideWeb.Data;
 using CyberTTRPGAideWeb.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
@@ -54,6 +55,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Create([Bind("CharacterSheetId,GameItemId,ItemCount")] Inventory inventory)
         {
             if (ModelState.IsValid)
@@ -87,6 +89,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> Edit(Guid id, [Bind("CharacterSheetId,GameItemId,ItemCount")] Inventory inventory)
         {
             if (id != inventory.CharacterSheetId)
@@ -138,6 +141,7 @@ namespace CyberTTRPGAideWeb.Controllers
         // POST: Inventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Verified")]
         public async Task<IActionResult> DeleteConfirmed(Guid? characterSheetId, Guid? gameItemId)
         {
             var inventory = await _context.Inventories.FindAsync(characterSheetId, gameItemId);
