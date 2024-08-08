@@ -9,7 +9,7 @@ namespace CyberTTRPGAideWeb.Models.Entities
 
 		[ForeignKey("AspNetUsers")]
 		public string UserId { get; set; }
-
+		
 		public string CharacterName { get; set; }
         public int Level { get; set; }
 

@@ -15,12 +15,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
-    public class MyCharactersController : Controller
+    public class CharactersController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public MyCharactersController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public CharactersController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _context = context;
             _userManager = userManager;

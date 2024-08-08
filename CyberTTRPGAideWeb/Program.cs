@@ -70,12 +70,6 @@ app.MapRazorPages();
 //    app.UseSwaggerUI();
 //}
 
-//app.MapPost("/fruitlist", (CyberTTRPGAideWeb.Models.Entities.GameItem gameItem) =>
-//{
-//    return;
-//})
-//    .WithTags("Add fruit to list");
-
 using (var scope = app.Services.CreateScope()) 
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
