@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using CyberTTRPGAideWeb.Classes;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
@@ -145,8 +146,14 @@ namespace CyberTTRPGAideWeb.Controllers
         }
 
         // GET: Characters/AddItems
-        public async Task<IActionResult> AddItems(Guid? id, string sortOrder, string searchString) 
+        public async Task<IActionResult> AddItems(
+            Guid? id, 
+            string sortOrder, 
+            string currentFilter,
+            string searchString, 
+            int? pageNumber) 
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["IDSortParam"] = sortOrder == "id" ? "id_desc" : "id";
             ViewData["NameSortParam"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["ValueSortParam"] = sortOrder == "value" ? "value_desc" : "value";
@@ -204,7 +211,7 @@ namespace CyberTTRPGAideWeb.Controllers
                     items = items.OrderByDescending(i => i.Value);
                     break;
                 case "weight":
-                    items = items.OrderBy(i => i.Value);
+                    items = items.OrderBy(i => i.Weight);
                     break;
                 case "weight_desc":
                     items = items.OrderByDescending(i => i.Weight);
@@ -214,7 +221,8 @@ namespace CyberTTRPGAideWeb.Controllers
                     break;
             }
 
-            return View(await items.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            return View(await PaginatedList<Item>.CreateAsync(items.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: CharacterSheets/Delete/5
