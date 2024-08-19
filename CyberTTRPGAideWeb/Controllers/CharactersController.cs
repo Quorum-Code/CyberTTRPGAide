@@ -9,12 +9,17 @@ using CyberTTRPGAideWeb.Data;
 using CyberTTRPGAideWeb.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
-
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
+    public class Sheet 
+    {
+        public Character? Character { get; set; }
+        public Item[]? GameItems { get; set; }
+    }
+
     public class CharactersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -47,14 +52,20 @@ namespace CyberTTRPGAideWeb.Controllers
                 return NotFound();
             }
 
-            var characters = await _context.Characters
+            var sheet = new Sheet();
+            sheet.Character = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
+
+            var inventoryItems = _context.Inventories.Where(i => i.CharacterSheetId == id);
+            // sheet.GameItems = await _context.GameItem.Where(g => g.Id in inventoryItems.);
+
+            var character = await _context.Characters
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (characters == null)
+            if (character == null)
             {
                 return NotFound();
             }
 
-            return View(characters);
+            return View(character);
         }
 
         // GET: Character/Create
@@ -131,6 +142,79 @@ namespace CyberTTRPGAideWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(character);
+        }
+
+        // GET: Characters/AddItems
+        public async Task<IActionResult> AddItems(Guid? id, string sortOrder, string searchString) 
+        {
+            ViewData["IDSortParam"] = sortOrder == "id" ? "id_desc" : "id";
+            ViewData["NameSortParam"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["ValueSortParam"] = sortOrder == "value" ? "value_desc" : "value";
+            ViewData["WeightSortParam"] = sortOrder == "weight" ? "weight_desc" : "weight";
+            ViewData["SearchTerm"] = searchString;
+
+            // Check that CharacterId is not null
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Id = id;
+
+            var characters = _context.Characters.Where(c => c.Id == id).ToList();
+            if (characters.Count == 1)
+            {
+                ViewBag.CharacterName = characters[0].Name;
+            }
+            else 
+            {
+                ViewBag.CharacterName = "Unknown";
+            }
+
+            // Sortable items
+            var items = from i in _context.GameItem
+                        select i;
+
+            // Search
+            if (!String.IsNullOrEmpty(searchString)) 
+            {
+                items = items.Where(i => i.Name.Contains(searchString) ||
+                                        i.Description.Contains(searchString) ||
+                                        i.Effects.Contains(searchString));
+            }
+
+            // Sort
+            switch (sortOrder)
+            {
+                case "id":
+                    items = items.OrderBy(i => i.Id);
+                    break;
+                case "id_desc":
+                    items = items.OrderByDescending(i => i.Id);
+                    break;
+                case "name":
+                    items = items.OrderBy(i => i.Name);
+                    break;
+                case "name_desc":
+                    items = items.OrderByDescending(i => i.Name);
+                    break;
+                case "value":
+                    items = items.OrderBy(i => i.Value);
+                    break;
+                case "value_desc":
+                    items = items.OrderByDescending(i => i.Value);
+                    break;
+                case "weight":
+                    items = items.OrderBy(i => i.Value);
+                    break;
+                case "weight_desc":
+                    items = items.OrderByDescending(i => i.Weight);
+                    break;
+                default:
+                    items = items.OrderBy(i => i.Id);
+                    break;
+            }
+
+            return View(await items.AsNoTracking().ToListAsync());
         }
 
         // GET: CharacterSheets/Delete/5

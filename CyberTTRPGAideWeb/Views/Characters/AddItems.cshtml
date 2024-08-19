@@ -1,0 +1,80 @@
+﻿@model IEnumerable<CyberTTRPGAideWeb.Models.Entities.Item>
+
+@{
+    ViewData["Title"] = "AddItems";
+}
+
+<h1>Add Items</h1>
+<h5> to @ViewBag.CharacterName </h5>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form>
+    <div>
+        <p>
+            Search by text: <input type="text" name="SearchString" value="@ViewData["SearchTerm"]" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            @{
+                if (!String.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()))
+                {
+                    <a asp-action="AddItems">Back to List</a>
+                }
+            }
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="cb-text-light">
+                <a asp-action="AddItems" asp-route-sortOrder="@ViewData["IDSortParam"]">@Html.DisplayNameFor(model => model.Id)</a>
+            </th>
+            <th class="cb-text-light">
+                <a asp-action="AddItems" asp-route-sortOrder="@ViewData["NameSortParam"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th class="cb-text-light">
+                <a asp-action="AddItems" asp-route-sortOrder="@ViewData["ValueSortParam"]">@Html.DisplayNameFor(model => model.Value)</a>
+            </th>
+            <th class="cb-text-light">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="cb-text-light">
+                @Html.DisplayNameFor(model => model.Effects)
+            </th>
+            <th class="cb-text-light">
+                <a asp-action="AddItems" asp-route-sortOrder="@ViewData["WeightSortParam"]">@Html.DisplayNameFor(model => model.Weight)</a>
+            </th>
+            <th class="cb-text-light"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Effects)
+            </td>
+            <td class="cb-text-lightish">
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td class="cb-text-lightish">
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTTRPGAideWeb.Controllers
 {
-    public class GameItemsController : Controller
+    public class ItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GameItemsController(ApplicationDbContext context)
+        public ItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -56,7 +56,7 @@ namespace CyberTTRPGAideWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Verified")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Value,Description,Effects,Weight")] GameItem gameItem)
+        public async Task<IActionResult> Create([Bind("Id,Name,Value,Description,Effects,Weight")] Item gameItem)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace CyberTTRPGAideWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Verified")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Value,Description,Effects,Weight")] GameItem gameItem)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Value,Description,Effects,Weight")] Item gameItem)
         {
             if (id != gameItem.Id)
             {

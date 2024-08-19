@@ -4,7 +4,8 @@
     ViewData["Title"] = "Characters";
 }
 
-<h1> Characters </h1>
+<h1> My Characters </h1>
+<p> Only characters created by you will be shown. </p>
 
 <p>
     <a asp-action="Create" class="cb-text-light">Create New</a>
@@ -13,13 +14,13 @@
     <thead>
         <tr>
             <th class="cb-text-light">
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th class="cb-text-light">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th class="cb-text-light">
                 @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th class="cb-text-light">
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th class="cb-text-light"></th>
         </tr>
@@ -29,13 +30,13 @@
         {
             <tr>
                 <td class="cb-text-lightish">
-                    @Html.DisplayFor(modelItem => item.UserId)
-                </td>
-                <td class="cb-text-lightish">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td class="cb-text-lightish">
                     @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td class="cb-text-lightish">
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="cb-text-light">Edit</a> |

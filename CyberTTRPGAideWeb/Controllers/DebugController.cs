@@ -54,7 +54,7 @@ namespace CyberTTRPGAideWeb.Controllers
             using StreamReader reader = new(path);
             string text = reader.ReadToEnd();
 
-            var items = JsonSerializer.Deserialize<List<GameItem>>(text);
+            var items = JsonSerializer.Deserialize<List<Item>>(text);
 
             if (items == null) 
             {

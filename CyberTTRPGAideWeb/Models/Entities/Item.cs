@@ -1,6 +1,6 @@
 ﻿namespace CyberTTRPGAideWeb.Models.Entities
 {
-    public class GameItem
+    public class Item
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -9,7 +9,7 @@
         public string Effects { get; set; }
         public float Weight { get; set; }
 
-        public GameItem()
+        public Item()
         {
             Name = string.Empty;
             Description = string.Empty;
