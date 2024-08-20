@@ -1,0 +1,34 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    Please enter the provided access code. This app is not intended for public access.
+</p>
+<form method="Post">
+    <div>
+        <input type="hidden" name="email" value="@Model.Email" />
+    </div>
+    <div>
+        <input type="text" name="accessCode"/>
+    </div>
+    <div>
+        <input type="submit" value="Confirm" />
+    </div>
+</form>
+
+    }
+    else
+    {
+<p>
+    Please check your email to confirm your account.
+</p>
+    }
+}
+

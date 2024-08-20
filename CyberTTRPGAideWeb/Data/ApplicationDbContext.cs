@@ -19,5 +19,6 @@ namespace CyberTTRPGAideWeb.Data
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<CyberTTRPGAideWeb.Models.Entities.GameLog> GameLog { get; set; } = default!;
         public DbSet<CyberTTRPGAideWeb.Models.Entities.Campaign> Campaign { get; set; } = default!;
+        public DbSet<CyberTTRPGAideWeb.Models.Entities.AccessCode> AccessCodes { get; set; } = default!;
     }
 }
