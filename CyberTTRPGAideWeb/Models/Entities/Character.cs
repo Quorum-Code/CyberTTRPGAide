@@ -18,7 +18,7 @@ namespace CyberTTRPGAideWeb.Models.Entities
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CreatedAt { get; set; }
 
-        public virtual ICollection<ItemEntry> ItemEntries { get; set; }
+        public virtual ICollection<ItemEntry>? ItemEntries { get; set; }
 
         public Character()
         {
